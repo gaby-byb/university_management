@@ -2,7 +2,7 @@
 include "../database.php";
 include "../includes/header.html";
 $sql =
-    "SELECT StudentID, UnivAdmitDate, BirthDate, TIMESTAMPDIFF(YEAR, BirthDate, CURDATE()) AS Age FROM student";
+    "SELECT StudentID, FirstName, LastName, UnivAdmitDate, BirthDate, Phone, Email FROM student";
 $stmt = $conn->query($sql);
 $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -16,7 +16,6 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">ADD STUDENTS</button>
       
 
-      <p class="text-secondary mb-0">Student admission dates, birth dates, and ages.</p>
     </div>
     <a class="btn btn-outline-primary" href="/University/index.php">Back to Home</a>
   </div>
@@ -31,9 +30,11 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <thead class="table-primary">
             <tr>
               <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
               <th>Admission Date</th>
               <th>Date of Birth</th>
-              <th>Age</th>
             </tr>
           </thead>
 
@@ -41,9 +42,13 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($students as $student): ?>
               <tr>
                 <td><?= htmlspecialchars($student["StudentID"]) ?></td>
+                <td><?= htmlspecialchars(
+                    $student["FirstName"] . " " . $student["LastName"],
+                ) ?></td>
+                <td><?= htmlspecialchars($student["Phone"]) ?></td>
+                <td><?= htmlspecialchars($student["Email"]) ?></td>
                 <td><?= htmlspecialchars($student["UnivAdmitDate"]) ?></td>
                 <td><?= htmlspecialchars($student["BirthDate"]) ?></td>
-                <td><?= htmlspecialchars($student["Age"]) ?></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
