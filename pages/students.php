@@ -1,6 +1,6 @@
 <?php
-include "database.php";
-include "header.html";
+include "../database.php";
+include "../includes/header.html";
 $sql =
     "SELECT StudentID, UnivAdmitDate, BirthDate, TIMESTAMPDIFF(YEAR, BirthDate, CURDATE()) AS Age FROM student";
 $stmt = $conn->query($sql);
@@ -9,9 +9,17 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 <main class="container py-5">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+      <h1 class="h2 mb-1">Students</h1>
+      <p class="text-secondary mb-0">Student admission dates, birth dates, and ages.</p>
+    </div>
+    <a class="btn btn-outline-primary" href="/University/index.php">Back to Home</a>
+  </div>
+
   <div class="card border-0 shadow-sm">
     <div class="card-header bg-white">
-      <h2 class="h5 mb-0">Students</h2>
+      <h2 class="h5 mb-0">Student List</h2>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -40,4 +48,4 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 </main>
-<?php include "footer.html"; ?>
+<?php include "../includes/footer.html"; ?>
