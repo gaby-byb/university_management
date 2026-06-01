@@ -1,0 +1,16 @@
+# University CRUD System
+
+PHP, MySQL, Bootstrap CRUD application.
+
+## Features
+
+- View Students
+- View Instructors
+- Database integration with PDO
+
+## Setup
+
+1. Clone repo
+2. Copy config.example.php to config.php
+3. Update database credentials
+4. Run using XAMPP/Apache
