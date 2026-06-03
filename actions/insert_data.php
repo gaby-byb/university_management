@@ -52,7 +52,10 @@ if (isset($_POST["add_student"])) {
                 $a_date,
                 $birth_date,
             ]);
-            echo "Inserted rows: " . $stmt->rowCount();
+            header(
+                "Location: ../pages/students.php?message=Student added successfully",
+            );
+            exit();
         } catch (PDOException $e) {
             echo "Database error: " . $e->getMessage();
             exit();

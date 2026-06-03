@@ -13,12 +13,25 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div>
       <h1 class="h2 mb-1">Students</h1>
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">ADD STUDENTS</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        ADD STUDENTS</button>
       
 
     </div>
-    <a class="btn btn-outline-primary" href="/University/index.php">Back to Home</a>
+
+    <a class="btn btn-outline-primary" href="/University/index.php">
+      Back to Home</a>
   </div>
+  <?php if (isset($_GET["message"])): ?>
+    <div class="alert alert-success alert-dismissible fade show">
+      <?= htmlspecialchars($_GET["message"]) ?>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+      ></button>
+    </div>
+  <?php endif; ?>
 
   <div class="card border-0 shadow-sm">
     <div class="card-header bg-white">
