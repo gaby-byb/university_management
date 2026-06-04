@@ -48,6 +48,8 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <th>Email</th>
               <th>Admission Date</th>
               <th>Date of Birth</th>
+              <th>Update</th>
+              <th>Delete</th>
             </tr>
           </thead>
 
@@ -62,6 +64,9 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= htmlspecialchars($student["Email"]) ?></td>
                 <td><?= htmlspecialchars($student["UnivAdmitDate"]) ?></td>
                 <td><?= htmlspecialchars($student["BirthDate"]) ?></td>
+                <td><a href="#" class="btn btn-success">Update</a></td>
+                <td><a href="#" class="btn btn-danger">Delete</a></td>
+
               </tr>
             <?php endforeach; ?>
           </tbody>
