@@ -65,7 +65,21 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= htmlspecialchars($student["UnivAdmitDate"]) ?></td>
                 <td><?= htmlspecialchars($student["BirthDate"]) ?></td>
                 <td><a href="#" class="btn btn-success">Update</a></td>
-                <td><a href="#" class="btn btn-danger">Delete</a></td>
+                <td>
+                 <form action="../actions/student_actions.php" 
+                 method=post
+                 onsubmit="return confirm('Delete this student?')">
+                 
+                 <input type="hidden" name="action" value="delete">
+                 <input type="hidden" name="student_id" value="<?= htmlspecialchars(
+                     $student["StudentID"],
+                 ) ?>">
+
+                 <button type="submit"class="btn btn-danger">
+                  Delete
+                 </button>
+            </form>
+                </td>
 
               </tr>
             <?php endforeach; ?>
@@ -78,7 +92,8 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- CRUD MODAL -->
        <!-- Modal -->
-       <form action="../actions/insert_data.php" method="post">
+       <form action="../actions/student_actions.php" method="post">
+        <input type="hidden" name="action" value="add">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
