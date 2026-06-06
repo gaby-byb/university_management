@@ -8,16 +8,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = $_POST["action"] ?? "";
 
     if ($action === "delete") {
-        $student_id = $_POST["student_id"] ?? "";
+        try {
+            $student_id = $_POST["student_id"] ?? "";
 
-        $stmt = $conn->prepare("DELETE from student where StudentID = ?");
-        $stmt->execute([$student_id]);
+            $stmt = $conn->prepare("DELETE from student where StudentID = ?");
+            $stmt->execute([$student_id]);
 
-        header(
-            "location: ../pages/students.php?message=" .
-                urlencode("Student deleted"),
-        );
-        exit();
+            header(
+                "location: ../pages/students.php?message=" .
+                    urlencode("Student deleted"),
+            );
+            exit();
+        } catch (PDOException $e) {
+            header(
+                "Location: ../pages/students.php?message=" .
+                    urlencode(
+                        "Cannot delete student because related record exists",
+                    ),
+            );
+        }
     }
     if ($action === "add") {
         $f_name = $_POST["f_name"];

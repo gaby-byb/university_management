@@ -23,7 +23,7 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
       Back to Home</a>
   </div>
   <?php if (isset($_GET["message"])): ?>
-    <div class="alert alert-success alert-dismissible fade show">
+    <div id="success-alert" class="alert alert-success alert-dismissible fade show">
       <?= htmlspecialchars($_GET["message"]) ?>
       <button
         type="button"
@@ -147,4 +147,14 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
           </div>
         </form>
+
+        <script>
+          setTimeout(() => {
+            const alert = document.getElementById("success-alert");
+            if (alert) {
+              alert.classList.remove("show");
+              setTimeout(() => alert.remove, 150)
+            }
+          }, 3000)
+        </script>
 <?php include "../includes/footer.html"; ?>
