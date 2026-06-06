@@ -64,7 +64,22 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= htmlspecialchars($student["Email"]) ?></td>
                 <td><?= htmlspecialchars($student["UnivAdmitDate"]) ?></td>
                 <td><?= htmlspecialchars($student["BirthDate"]) ?></td>
-                <td><a href="#" class="btn btn-success">Update</a></td>
+                
+                <!-- UPDATE FORM -> SENDS STUDENT ID -->
+                <td>
+                  <form action="../actions/update_student.php" method="get">
+                    <input
+                      type="hidden"
+                      name="student_id"
+                      value="<?= htmlspecialchars($student["StudentID"]) ?>"
+                    >
+                    <button type="submit" class="btn btn-success">
+                      Update
+                    </button>
+                  </form>
+                </td>
+
+                <!-- DELETE FORM SENDS STUDENT ID -->
                 <td>
                  <form action="../actions/student_actions.php" 
                  method=post
@@ -75,10 +90,10 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
                      $student["StudentID"],
                  ) ?>">
 
-                 <button type="submit"class="btn btn-danger">
+                  <button type="submit"class="btn btn-danger">
                   Delete
-                 </button>
-            </form>
+                  </button>
+                  </form>
                 </td>
 
               </tr>
@@ -93,14 +108,19 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <!-- CRUD MODAL -->
        <!-- Modal -->
        <form action="../actions/student_actions.php" method="post">
+
         <input type="hidden" name="action" value="add">
+
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
+
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Student Information</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              
               </div>
+
               <div class="modal-body">
                   <div class="form-group">
                     <label>First Name</label>
@@ -117,10 +137,12 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <input type="date" name="birth_date" class="form-control">
                   </div>
                 </div>
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   <input type="submit" class="btn btn-primary green" name="add_student" value="Add"></input>
                 </div>
+
               </div>
             </div>
           </div>

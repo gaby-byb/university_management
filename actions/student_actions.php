@@ -79,6 +79,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             exit();
         }
     }
+    if ($action === "update") {
+        $student_id = $_POST["student_id"] ?? "";
+        $stmt = $conn->prepare(
+            "UPDATE student
+        SET 
+            FirstName = ?, 
+            LastName = ?, 
+            UnivAdmitDate = ?, 
+            BirthDate = ?, 
+            Email = ?, 
+            Phone = ?   
+        where StudentID = ?",
+        );
+
+        $stmt->execute([
+            $_POST["f_name"],
+            $_POST["l_name"],
+            $_POST["a_date"],
+            $_POST["birth_date"],
+            $_POST["email"],
+            $_POST["phone"],
+            $student_id,
+        ]);
+        header("Location: ../pages/students.php?message=Student Updated");
+        exit();
+    }
 }
 
 ?>
