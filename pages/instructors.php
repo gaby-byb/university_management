@@ -21,21 +21,36 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <a class="btn btn-outline-primary" href="/University/index.php">Back to Home</a>
     </div>
-    
+    <!-- ADD instructor success message -->
+    <?php if (isset($_GET["message"])): ?>
+        <div id="success-alert" class="alert alert-success alert-dismissible fade show">
+            <?= htmlspecialchars($_GET["message"]) ?>
+            <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            >
+            </button>
+        </div>
+        <?php endif; ?>
     <div class="card border-0 shadow-sm">
         <div class="card-header bg-white">
             <h2 class="h5 mb-0">Instructor List</h2>
         </div>
-        
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-hover table-bordered table-striped align-middle mb-0">
                     <thead class="table-primary">
                         <tr>
                             <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
                             <th>Birth date</th>
                             <th>Hire Date</th>
                             <th>Department ID</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +68,23 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= htmlspecialchars(
                                 $instructor["DeptID"],
                             ) ?></td>
+
+                            <!-- DELETE INSTRUCTOR / SENDS ID -->
+                            <td>
+                                <form action="../actions/instructor_actions.php"
+                                method="post"
+                                onsubmit="return confirm('Delete this instructor?')">
+
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="instructor_id" 
+                                value="<?= htmlspecialchars(
+                                    $instructor["InstructorID"],
+                                ) ?>">
+                                    <button type="submit" class="btn btn-danger">
+                                    Delete
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -79,8 +111,16 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
               <div class="modal-body">
                   <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" name="f_name" class="form-control">
+                    <label>Last Name</label>
+                    <input type="text" name="l_name" class="form-control">
+                    <label>Phone Number</label>
+                    <input type="text" name="p_number" class="form-control">
+                    <label>Email </label>
+                    <input type="text" name="email" class="form-control">
                     <label>Hire Date</label>
-                    <input type="date" name="a_date" class="form-control">
+                    <input type="date" name="hire_date" class="form-control">
                     <label>Date of Birth</label>
                     <input type="date" name="birth_date" class="form-control">
                   </div>
@@ -95,4 +135,14 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
           </div>
         </form>
+
+<script>
+    setTimeout(() => {
+        const alert = document.getElementById("success-alert")
+        if (alert) {
+            alert.classList.remove("show");
+            setTimeout(() => alert.remove, 150)
+        }
+    }, 3000)
+</script>
 <?php include "../includes/footer.html"; ?>
