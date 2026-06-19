@@ -134,9 +134,31 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <input type="date" name="hire_date" class="form-control">
                     <label>Date of Birth</label>
                     <input type="date" name="birth_date" class="form-control">
-                    <label>Department</label>
-                    <!-- Generate Departments / fetch from table -->
                     
+                    <!-- Generate Departments / fetch from table -->
+                    <?php
+                    $stmt = $conn->query("
+                    SELECT DeptID, DeptName
+                    FROM department
+                    ORDER BY DeptID
+                    ");
+                    $departments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+
+                    <label>Department</label>
+                    <select name="dept_id" class="form-control">
+                        <option value=""> Select a Department
+                        <?php foreach ($departments as $department): ?>
+                            <option value="<?= htmlspecialchars(
+                                $department["DeptID"],
+                            ) ?>">
+                            <?= htmlspecialchars($department["DeptID"]) ?>
+                            -
+                            <?= htmlspecialchars($department["DeptName"]) ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+
                 </div>
                 </div>
 
