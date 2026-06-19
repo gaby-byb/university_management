@@ -4,7 +4,7 @@ include "../database.php";
 include "../includes/header.html";
 
 $sql =
-    "SELECT InstructorID, InstBirthDate, InstHireDate, DeptID FROM instructor";
+    "SELECT InstructorID, InstBirthDate, InstHireDate, DeptID, FirstName, LastName, Email, Phone FROM instructor";
 $stmt = $conn->query($sql);
 $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

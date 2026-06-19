@@ -25,16 +25,52 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 "Location: ../pages/instructors.php?message=" .
                     urlencode("Cannot delete instructor"),
             );
+            exit();
         }
     }
     if ($action === "add") {
         // set variables for all attributes
-        $f_name = $_POST["f_name"];
-        $l_name = $_POST["l_name"];
-        $p_number = $_POST["phone"];
-        $email = $_POST["email"];
-        $hire_date = $_POST["hire_date"];
-        $birth_date = $_POST["birth_date"];
+        //trim does lazy form validation
+        $f_name = trim($_POST["f_name"] ?? "");
+        $l_name = trim($_POST["l_name"] ?? "");
+        $p_number = trim($_POST["phone"] ?? "");
+        $email = trim($_POST["email"] ?? "");
+        $hire_date = trim($_POST["hire_date"] ?? "");
+        $birth_date = trim($_POST["birth_date"] ?? "");
+        $dept_id = trim($_POST["dept_id"] ?? "");
+
+        // FORM VALIDATION
+        if (
+            $f_name === "" ||
+            $l_name === "" ||
+            $p_number === "" ||
+            $email === "" ||
+            $hire_date === "" ||
+            $birth_date === "" ||
+            $dept_id === ""
+        ) {
+            header(
+                "Location: ../pages/instructors.php?message=" .
+                    urlencode("All fields are required"),
+            );
+            exit();
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header(
+                "Location: ../pages/instructors.php?message=" .
+                    urlencode("Invalid email address"),
+            );
+            exit();
+        }
+
+        if (strtotime($birth_date) > strtotime($hire_date)) {
+            header(
+                "Location: ../pages/instructors.php?message=" .
+                    urlencode("Birth date cannot be after hire date"),
+            );
+            exit();
+        }
 
         $idStmt = $conn->query("
         SELECT InstructorID
@@ -57,8 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         try {
             $stmt = $conn->prepare("
             INSERT INTO instructor
-            (InstructorID, FirstName, LastName, Email, Phone, InstBirthDate, InstHireDate)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            (InstructorID, FirstName, LastName, Email, Phone, InstBirthDate, InstHireDate, DeptID)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ");
             $stmt->execute([
                 $instructor_id,
@@ -68,7 +104,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $p_number,
                 $birth_date,
                 $hire_date,
+                $dept_id,
             ]);
+            header(
+                "Location: ../pages/instructors.php?message=" .
+                    urldecode("Instructor added"),
+            );
+            exit();
         } catch (PDOException $e) {
             echo "Database error: " . $e->getMessage();
             exit();
