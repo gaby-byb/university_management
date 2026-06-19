@@ -25,7 +25,7 @@ include "database.php";
         <div class="card-body p-4">
           <h2 class="h5 card-title">Instructors</h2>
           <p class="card-text text-secondary">View instructor birth dates, hire dates, and departments.</p>
-          <a class="btn btn-primary" href="/University/pages/instructor.php">Open Instructors</a>
+          <a class="btn btn-primary" href="/University/pages/instructors.php">Open Instructors</a>
         </div>
       </div>
     </div>

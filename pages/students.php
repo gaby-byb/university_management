@@ -14,7 +14,7 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <h1 class="h2 mb-1">Students</h1>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        ADD STUDENTS</button>
+        ADD STUDENT</button>
       
 
     </div>
