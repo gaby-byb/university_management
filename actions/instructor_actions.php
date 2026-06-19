@@ -116,6 +116,45 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             exit();
         }
     }
+    if ($action === "update") {
+        try {
+            $instructor_id = $_POST["instructor_id"] ?? "";
+            $stmt = $conn->prepare(
+                "UPDATE instructor
+                SET
+                    FirstName = ?, 
+                    LastName = ?, 
+                    InstHireDate = ?, 
+                    InstBirthDate = ?, 
+                    Email = ?, 
+                    Phone = ?,  
+                    DeptID = ?
+                WHERE
+                    InstructorID = ?",
+            );
+            $stmt->execute([
+                $_POST["f_name"],
+                $_POST["l_name"],
+                $_POST["hire_date"],
+                $_POST["birth_date"],
+                $_POST["email"],
+                $_POST["p_number"],
+                $_POST["dept_id"],
+                $instructor_id,
+            ]);
+            header(
+                "Location: ../pages/instructors.php?message=" .
+                    urlencode("Instructor Updated"),
+            );
+            exit();
+        } catch (PDOException $e) {
+            header(
+                "Location: ../pages/instructors.php?message=" .
+                    urlencode("Error updating instructor"),
+            );
+            exit();
+        }
+    }
 }
 
 ?>

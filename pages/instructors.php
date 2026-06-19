@@ -82,7 +82,7 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             ) ?></td>
                             <!-- UPDATE INSTRUCTOR / SEND ID -->
                             <td>
-                                <form action="../actions/update_instructor" method="get">
+                                <form action="../actions/update_instructor.php" method="get">
                                 <input 
                                 type="hidden"
                                 name="instructor_id"
