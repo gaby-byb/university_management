@@ -11,6 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         try {
             $student_id = $_POST["student_id"] ?? "";
 
+            //delete dependencies in other tables
+
             $stmt = $conn->prepare("DELETE from student where StudentID = ?");
             $stmt->execute([$student_id]);
 

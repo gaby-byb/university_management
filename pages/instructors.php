@@ -50,6 +50,7 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <th>Birth date</th>
                             <th>Hire Date</th>
                             <th>Department ID</th>
+                            <th>Update</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -79,6 +80,21 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= htmlspecialchars(
                                 $instructor["DeptID"],
                             ) ?></td>
+                            <!-- UPDATE INSTRUCTOR / SEND ID -->
+                            <td>
+                                <form action="../actions/update_instructor" method="get">
+                                <input 
+                                type="hidden"
+                                name="instructor_id"
+                                value="<?= htmlspecialchars(
+                                    $instructor["InstructorID"],
+                                ) ?>">
+                                <button type="submit" class="btn btn-success">
+                                    Update
+                                </button>
+                                </form>
+
+                            </td>
 
                             <!-- DELETE INSTRUCTOR / SENDS ID -->
                             <td>

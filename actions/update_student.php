@@ -1,6 +1,5 @@
 <?php
 include "../database.php";
-include "../includes/header.html";
 
 $student_id = $_GET["student_id"] ?? "";
 $stmt = $conn->prepare("SELECT 
@@ -12,9 +11,13 @@ $stmt->execute([$student_id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$student) {
-    header("Location: ../pages/students.php?message=Student not found");
+    header(
+        "Location: ../pages/students.php?message=" .
+            urlencode("Student not found"),
+    );
     exit();
 }
+include "../includes/header.html";
 ?>
 <!-- PREFILL THE FORM (POST WILL SEND THE INFO TO STUDENTS ACTIONS)-->
 <form action="../actions/student_actions.php" method="post">
@@ -54,13 +57,13 @@ if (!$student) {
     >
     <label>Birth Date</label>
     <input
-        type="text"
+        type="date"
         name="birth_date"
         value="<?= htmlspecialchars($student["BirthDate"]) ?>"
     >
     <label>Admission Date</label>
     <input
-        type="text"
+        type="date"
         name="a_date"
         value="<?= htmlspecialchars($student["UnivAdmitDate"]) ?>"
     >
