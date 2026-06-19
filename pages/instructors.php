@@ -79,6 +79,7 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= htmlspecialchars(
                                 $instructor["DeptID"],
                             ) ?></td>
+                            
                             <!-- UPDATE INSTRUCTOR / SEND ID -->
                             <td>
                                 <form action="../actions/update_instructor.php" method="get">
