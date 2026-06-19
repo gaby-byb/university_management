@@ -29,17 +29,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
     if ($action === "add") {
-        $f_name = $_POST["f_name"];
-        $l_name = $_POST["l_name"];
+        $f_name = trim($_POST["f_name"] ?? "");
+        $l_name = trim($_POST["l_name"] ?? "");
+        $p_number = trim($_POST["p_number"] ?? "");
+        $email = trim($_POST["email"] ?? "");
+        $a_date = trim($_POST["a_date"] ?? "");
+        $birth_date = trim($_POST["birth_date"] ?? "");
 
-        $p_number = $_POST["p_number"];
-        $email = $_POST["email"];
-        $a_date = $_POST["a_date"];
-        $birth_date = $_POST["birth_date"];
-
-        if ($f_name == "" || empty($f_name)) {
+        if (
+            $f_name === "" ||
+            $l_name === "" ||
+            $p_number === "" ||
+            $email === "" ||
+            $a_date === "" ||
+            $birth_date === ""
+        ) {
             header(
-                "location:../students/index.php?message=First name cannot be empty",
+                "location:../students/index.php?message=" .
+                    urldecode("All fields must be filled"),
+            );
+            exit();
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header(
+                "location:../students/index.php?message=" .
+                    urldecode("Invalid email address"),
+            );
+            exit();
+        }
+        if (strtotime($birth_date) > strtotime($a_date)) {
+            header(
+                "Location: ../pages/instructors.php?message=" .
+                    urlencode("Birth date cannot be after hire date"),
             );
             exit();
         }
