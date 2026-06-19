@@ -13,7 +13,6 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
         <div>
             <h1 class="h2 mb-1">Instructors</h1>
-            <p class="text-secondary mb-0">Instructor birth dates, hire dates, and departments.</p>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Add Instructor

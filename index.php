@@ -37,7 +37,13 @@ include "database.php";
           <a class="btn btn-primary" href="/University/pages/departments.php">Open Departments</a>
         </div>
       </div>
-    </div>
+    </div><div class="col-md-6">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="h5 card-title">Courses</h2>
+          <p class="card-text text-secondary">View available courses and respective credit hours.</p>
+          <a class="btn btn-primary" href="/University/pages/courses.php">Open Courses</a>
+        </div>
     <div class="col-md-6">
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body p-4">
