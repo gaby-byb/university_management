@@ -60,6 +60,17 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 $instructor["InstructorID"],
                             ) ?></td>
                             <td><?= htmlspecialchars(
+                                $instructor["FirstName"] .
+                                    " " .
+                                    $instructor["LastName"],
+                            ) ?></td>
+                            <td><?= htmlspecialchars(
+                                $instructor["Phone"],
+                            ) ?></td>
+                            <td><?= htmlspecialchars(
+                                $instructor["Email"],
+                            ) ?></td>
+                            <td><?= htmlspecialchars(
                                 $instructor["InstBirthDate"],
                             ) ?></td>
                             <td><?= htmlspecialchars(
@@ -123,7 +134,10 @@ $instructors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <input type="date" name="hire_date" class="form-control">
                     <label>Date of Birth</label>
                     <input type="date" name="birth_date" class="form-control">
-                  </div>
+                    <label>Department</label>
+                    <!-- Generate Departments / fetch from table -->
+                    
+                </div>
                 </div>
 
                 <div class="modal-footer">
