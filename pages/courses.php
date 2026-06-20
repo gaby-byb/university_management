@@ -7,6 +7,14 @@ SELECT
     CourseID, CourseName, CreditHours, DeptID
 from course");
 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Generate Departments / fetch from table
+$deStmt = $conn->query("
+                    SELECT DeptID, DeptName
+                    FROM department
+                    ORDER BY DeptID
+                    ");
+$departments = $deStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <main class="container py-5">
@@ -77,75 +85,69 @@ $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
+                    </table>
+                    </div>
+                    </div>
 </main>
 
 <!-- CRUD MODAL -->
-       <!-- Modal -->
-       <form action="../actions/course_actions.php" method="post">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="../actions/course_actions.php" method="post" class="modal-content">
 
-        <input type="hidden" name="action" value="add">
+            <input type="hidden" name="action" value="add">
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-
+            <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Course Information</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              
-              </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-              <div class="modal-body">
-                  <div class="form-group">
-                    <label>Course ID</label>
-                    <input type="text" name="course_id" class="form-control">
-                    <label>Course Name</label>
-                    <input type="text" name="name" class="form-control">
-                    <label>Credit Hours</label>
-                    <input type="text" name="c_hours" class="form-control">
-                    <!-- Generate Departments / fetch from table -->
-                    <?php
-                    $stmt = $conn->query("
-                    SELECT DeptID, DeptName
-                    FROM department
-                    ORDER BY DeptID
-                    ");
-                    $departments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    ?>
+            <div class="modal-body">
+                <label>Course ID</label>
+                <input type="text" name="course_id" class="form-control">
 
-                    <label>Department</label>
-                    <select name="dept_id" class="form-control">
-                        <option value=""> Select a Department
-                        <?php foreach ($departments as $department): ?>
-                            <option value="<?= htmlspecialchars(
-                                $department["DeptID"],
-                            ) ?>">
+                <label>Course Name</label>
+                <input type="text" name="name" class="form-control">
+
+                <label>Credit Hours</label>
+                <input type="text" name="c_hours" class="form-control">
+
+                <label>Department</label>
+                <select name="dept_id" class="form-control">
+                    <option value="">Select a Department</option>
+
+                    <?php foreach ($departments as $department): ?>
+                        <option value="<?= htmlspecialchars(
+                            $department["DeptID"],
+                        ) ?>">
                             <?= htmlspecialchars($department["DeptID"]) ?>
                             -
                             <?= htmlspecialchars($department["DeptName"]) ?>
                         </option>
-                        <?php endforeach; ?>
-                    </select>
-
-                </div>
-                </div>
-
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <input type="submit" class="btn btn-primary green" name="add_student" value="Add"></input>
-                </div>
-
-              </div>
+                    <?php endforeach; ?>
+                </select>
             </div>
-          </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+
         </form>
+    </div>
+</div>
 
 <script>
     setTimeout(() => {
         const alert = document.getElementById("success-alert")
         if (alert) {
             alert.classList.remove("show");
-            setTimeout(() => alert.remove(), 150)
+            setTimeout(() => {
+                alert.remove();
+                window.history.replaceState({}, document.title, window.location.pathname);    
+            }, 150)
         }
     }, 3000)
 </script>
+
+<?php include "../includes/footer.html"; ?>

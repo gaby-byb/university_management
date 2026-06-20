@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     VALUES (?, ?, ?)",
                 );
                 $stmt->execute([$newID, $name, $date_est]);
+                exit();
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
